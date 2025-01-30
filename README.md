@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# AI Book Recommender
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AI Book Recommender is a React application that provides personalized book recommendations based on user interests. It uses the Hugging Face API to generate book suggestions and the Google Books API to fetch book details and images.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Personalized book recommendations based on user interests
+- Dark mode support
+- Responsive design
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
+- Hugging Face API
+- Google Books API
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v14 or higher)
+- npm or yarn
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-username/ai-book-recommender.git
+   cd ai-book-recommender
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Create a `.env` file in the root directory and add your API keys:
+   ```properties
+   REACT_APP_HUGGING_FACE_API_KEY=your_hugging_face_api_key
+   REACT_APP_GOOGLE_BOOKS_API_KEY=your_google_books_api_key
+   ```
 
-### `npm run eject`
+### Running the Application
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Start the development server:
+   ```sh
+   npm start
+   # or
+   yarn start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Open your browser and navigate to `http://localhost:3000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Building for Production
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Build the application:
+   ```sh
+   npm run build
+   # or
+   yarn build
+   ```
 
-## Learn More
+2. The production-ready files will be in the `build` directory.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Testing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Run tests:
+   ```sh
+   npm test
+   # or
+   yarn test
+   ```
 
-### Code Splitting
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Deploying to Vercel
 
-### Analyzing the Bundle Size
+1. Install Vercel CLI (if not already installed):
+   ```sh
+   npm install -g vercel
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Login to Vercel:
+   ```sh
+   vercel login
+   ```
 
-### Making a Progressive Web App
+3. Initialize Vercel in your project directory:
+   ```sh
+   vercel
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+4. Follow the prompts:
+   ```
+   ? Set up and deploy “./”? yes
+   ? Which scope should contain your project? 'select your project'
+   ? Link to existing project? no
+   ? What’s your project’s name? ai-book-recommender
+   ? In which directory is your code located? ./
+   ```
 
-### Advanced Configuration
+5. Deploy your application:
+   ```sh
+   vercel --prod
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+6. Add environment variables in the Vercel dashboard under the "Environment Variables" section:
+   - `REACT_APP_HUGGING_FACE_API_KEY`
+   - `REACT_APP_GOOGLE_BOOKS_API_KEY`
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-### `npm run build` fails to minify
+## Acknowledgements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Hugging Face](https://huggingface.co/)
+- [Google Books API](https://developers.google.com/books)
+- [Create React App](https://create-react-app.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
