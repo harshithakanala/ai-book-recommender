@@ -32,7 +32,10 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
@@ -46,6 +49,8 @@ body {
 .container {
   width: 100%;
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Form Container */
@@ -235,7 +240,6 @@ input:checked + .slider:after {
 .dark-mode input:checked + .slider {
   background-color: var(--primary-color-dark);
 }
-
 
 /* Responsive Design */
 @media (max-width: 768px) {

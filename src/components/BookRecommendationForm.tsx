@@ -105,7 +105,7 @@ const BookRecommendationForm: React.FC = () => {
 
   return (
     <div className={`${darkMode ? 'dark-mode' : ''}`}>
-      <div className="container">
+      <div className="container w-full">
         <div className="form-container">
           <div className="flex justify-between items-center mb-4">
             <h1 className="header">AI-Based Book Recommendations</h1>
