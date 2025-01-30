@@ -35,7 +35,7 @@ const BookRecommendationForm: React.FC = () => {
       const response = await axios.post(
         'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3',
         {
-          inputs: `Suggest 10 books based on the interest of "${interest}"`,
+          inputs: `Suggest 10 books based on the interest of "${interest}". For each book, provide the title, author, and a brief description in the following format: "Title" by Author: Description.`,
         },
         {
           headers: {
@@ -49,21 +49,24 @@ const BookRecommendationForm: React.FC = () => {
         const rawText = response.data[0]?.generated_text || '';
         console.log('Raw Text:', rawText);
 
-        const bookPattern = /"([^"]+)"\sby\s([^:]+):\s(.+)/g;
+        const bookEntries = rawText.split('\n').filter((entry: string) => entry.trim() !== '');
 
-        const books: Book[] = [];
-        let match;
-        while ((match = bookPattern.exec(rawText)) !== null) {
-          const [, title, author, summary] = match;
-          if (title && author && summary) {
-            books.push({
+        const books: Book[] = bookEntries.map((entry: string) => {
+          const match = entry.match(/"([^"]+)"\sby\s([^:]+):\s(.+)/);
+          if (match) {
+            const [, title, author, summary] = match;
+            if (title === "Title" && author === "Author" && summary === "Description.") {
+              return null;
+            }
+            return {
               title: title.trim(),
               author: author.trim(),
               summary: summary.trim(),
               link: `https://www.google.com/search?q=${encodeURIComponent(title)} by ${encodeURIComponent(author)}`,
-            });
+            };
           }
-        }
+          return null;
+        }).filter((book: Book | null): book is Book => book !== null);
 
         if (books.length === 0) {
           throw new Error('No books found in the response');
@@ -116,7 +119,7 @@ const BookRecommendationForm: React.FC = () => {
           </div>
           <p className="subheader">Get personalized book recommendations based on your interests.</p>
           <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
-            <label htmlFor="interest" className="text-lg mb-2 text-gray-700 dark:text-gray-300">
+            <label htmlFor="interest" className="text-lg mb-2 text-blue-700 dark:text-blue-300">
               What's your interest? (e.g., business, love, horror, etc.)
             </label>
             <input

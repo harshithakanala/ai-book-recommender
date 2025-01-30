@@ -168,6 +168,32 @@ body {
   border-color: var(--primary-color-dark);
 }
 
+/* Light Mode Text Styling */
+.card .text-xl {
+  color: var(--text-dark);
+}
+
+.card .text-md {
+  color: var(--text-dark);
+}
+
+.card .text-sm {
+  color: var(--text-dark);
+}
+
+/* Dark Mode Text Styling */
+.dark-mode .card .text-xl {
+  color: var(--text-light);
+}
+
+.dark-mode .card .text-md {
+  color: var(--text-light);
+}
+
+.dark-mode .card .text-sm {
+  color: var(--text-light);
+}
+
 /* Toggle Switch */
 .toggle-switch {
   position: relative;
