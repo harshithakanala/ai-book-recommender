@@ -2,13 +2,12 @@ import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
 import './BookRecommendationForm.css';
 
-
 interface Book {
   title: string;
   author: string;
   summary: string;
   link: string;
-  image?: string; 
+  image?: string;
 }
 
 const BookRecommendationForm: React.FC = () => {
@@ -16,6 +15,7 @@ const BookRecommendationForm: React.FC = () => {
   const [bookRecommendations, setBookRecommendations] = useState<Book[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [darkMode, setDarkMode] = useState<boolean>(false); 
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -47,9 +47,9 @@ const BookRecommendationForm: React.FC = () => {
 
       if (response && response.data) {
         const rawText = response.data[0]?.generated_text || '';
-        console.log('Raw Text:', rawText); 
+        console.log('Raw Text:', rawText);
 
-        const bookPattern = /"([^"]+)"\sby\s([^:]+):\s(.+)/g; 
+        const bookPattern = /"([^"]+)"\sby\s([^:]+):\s(.+)/g;
 
         const books: Book[] = [];
         let match;
@@ -84,7 +84,7 @@ const BookRecommendationForm: React.FC = () => {
           })
         );
 
-        console.log('Books:', booksWithImages); 
+        console.log('Books:', booksWithImages);
         setBookRecommendations(booksWithImages);
       } else {
         throw new Error('Invalid response from Hugging Face API');
@@ -104,51 +104,64 @@ const BookRecommendationForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">AI-Based Book Recommendations</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <label htmlFor="interest" className="text-lg mb-2 text-gray-700">
-          What's your interest? (e.g., business, love, self-improvement)
-        </label>
-        <input
-          type="text"
-          id="interest"
-          value={interest}
-          onChange={(e) => setInterest(e.target.value)}
-          placeholder="Type your interest..."
-          className="p-2 text-lg w-3/4 rounded-md mb-4 border border-gray-300"
-        />
-        <button type="submit" disabled={loading} className="p-2 text-lg bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
-          {loading ? 'Loading...' : 'Get Book Recommendations'}
-        </button>
-      </form>
-
-      {errorMessage && (
-        <div className="mt-4 text-red-500 text-center">
-          <p>{errorMessage}</p>
-        </div>
-      )}
-
-      {bookRecommendations.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-            Recommended Books for Your Interest: {interest}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {bookRecommendations.map((book, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow-md text-center transition transform hover:scale-105">
-                {book.image && <img src={book.image} alt={book.title} className="w-full h-auto rounded-md mb-4" />}
-                <h3 className="text-xl font-bold text-gray-800">{book.title}</h3>
-                <p className="text-md text-gray-600"><strong>Author:</strong> {book.author}</p>
-                <p className="text-sm text-gray-500">{book.summary}</p>
-                <a href={book.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-md mt-2 inline-block">
-                  Search Online
-                </a>
-              </div>
-            ))}
+    <div className={`${darkMode ? 'dark-mode' : ''}`}>
+      <div className="container">
+        <div className="form-container">
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="header">AI-Based Book Recommendations</h1>
+            <label className="toggle-switch">
+              <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+              <span className="slider"></span>
+            </label>
           </div>
+          <p className="subheader">Get personalized book recommendations based on your interests.</p>
+          <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+            <label htmlFor="interest" className="text-lg mb-2 text-gray-700 dark:text-gray-300">
+              What's your interest? (e.g., business, love, horror, etc.)
+            </label>
+            <input
+              type="text"
+              id="interest"
+              value={interest}
+              onChange={(e) => setInterest(e.target.value)}
+              placeholder="Type your interest..."
+              className="input mb-4 bg-white dark:bg-gray-800"
+            />
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className="button bg-white dark:bg-gray-800"
+            >
+              {loading ? 'Loading...' : 'Get Book Recommendations'}
+            </button>
+          </form>
+
+          {errorMessage && (
+            <div className="mt-4 text-red-500 text-center">
+              <p>{errorMessage}</p>
+            </div>
+          )}
         </div>
-      )}
+
+        {bookRecommendations.length > 0 && (
+          <div className="mt-8">
+            <h2 className="header">Recommended Books for Your Interest: {interest}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {bookRecommendations.map((book, index) => (
+                <div key={index} className="card">
+                  {book.image && <img src={book.image} alt={book.title} className="w-full h-auto rounded-md mb-4" />}
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white">{book.title}</h3>
+                  <p className="text-md text-gray-600 dark:text-gray-300"><strong>Author:</strong> {book.author}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{book.summary}</p>
+                  <a href={book.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-md mt-2 inline-block">
+                    Search Online
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
